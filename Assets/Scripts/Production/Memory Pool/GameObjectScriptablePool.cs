@@ -27,6 +27,7 @@ public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
         }
         return internalPool.Rent(returnActive);
     }
+  
     public void OnDestroy()
     {
         internalPool.Dispose();

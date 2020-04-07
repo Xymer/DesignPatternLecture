@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private Bullet m_BulletComponentPrefab;
-    [SerializeField] private GameObject m_BulletPrefab;
+    //[SerializeField] private Bullet m_BulletComponentPrefab;
+    //[SerializeField] private GameObject m_BulletPrefab;
     [SerializeField] private GameObjectScriptablePool m_ScriptablePool;
 
     private GameObjectPool m_BulletPool;

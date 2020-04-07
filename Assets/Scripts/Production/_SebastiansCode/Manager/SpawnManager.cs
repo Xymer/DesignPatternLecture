@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private ScriptableEnemies[] Enemy;
+    [SerializeField] private GameObjectScriptablePool[] Enemies;
     [SerializeField] private MapReaderMono m_MapReader;
     [SerializeField] private Camera m_Camera;
     private PathAgent m_PathManager;
@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour
     }
     private void Update()
     {
-        m_PathManager.MoveAgent();   
+         
     }
 
     private void Initalize()
@@ -45,7 +45,8 @@ public class SpawnManager : MonoBehaviour
     [ContextMenu("SpawnEnemy")]
     private void SpawnEnemy()
     {        
-       Instantiate(Enemy[0].Prefab,startPosition,Quaternion.identity);
+        GameObject enemy = Instantiate(Enemies[0].Rent(false), startPosition, Quaternion.identity);
+        enemy.SetActive(true);
     }
     private void OnDrawGizmos()
     {
@@ -59,4 +60,5 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
+
 }

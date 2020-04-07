@@ -95,7 +95,7 @@ MonoBehaviour:
     Prefab: {fileID: 6360046985728068882, guid: c6e46598445204935bcf241407b687d5,
       type: 3}
   tileDisplacement: 2
-  m_MapName: map_1
+  m_MapName: map_2
 --- !u!114 &7800416333210831789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,4 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248b4558324a1db498d829bc534a3eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 11400000, guid: 69a1f99864892bd43941e5626abf0c21, type: 2}
+  - {fileID: 11400000, guid: e023dbb6d95fd6949993f6a817213938, type: 2}
   m_MapReader: {fileID: 5871153629717183317}
+  m_Camera: {fileID: 0}

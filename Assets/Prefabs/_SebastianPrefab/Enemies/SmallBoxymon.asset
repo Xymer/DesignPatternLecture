@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b7f9d69748cc1f4097dbdc1a7ba2f76, type: 3}
-  m_Name: Bullet Scriptable Pool
+  m_Name: SmallBoxymon
   m_EditorClassIdentifier: 
-  m_Prefab: {fileID: 225077031991834588, guid: e2865f010891d4cda90f443c0fe28d13, type: 3}
-  m_InitSize: 1
-  m_ExpandBy: 5
+  m_Prefab: {fileID: 4175602113537187157, guid: 5818fab93c5700e4890e42d01917922f,
+    type: 3}
+  m_InitSize: 5
+  m_ExpandBy: 1
   m_HasParent: 1
-  m_ParentName: BulletPool
+  m_ParentName: Enemies
