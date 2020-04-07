@@ -12,10 +12,7 @@ public class MapGenerator : MonoBehaviour
     Vector3 m_MapCenter = Vector3.zero;
     IEnumerable<Vector2Int> m_Path = new List<Vector2Int>();
     List<Vector2Int> m_AccessibleNodes = new List<Vector2Int>();
-    private void Awake()
-    {
-        
-    }
+
     public void GenerateMap(int[,] mapData, Dictionary<TileType, GameObject> prefabsById, int displacement)
     {
        
