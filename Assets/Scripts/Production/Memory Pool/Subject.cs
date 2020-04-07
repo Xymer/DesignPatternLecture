@@ -10,10 +10,10 @@ public static class IObservableExtensions
 }
 public class ActionToObserver<T> : IObserver<T>
 {
-    private Action<T> action;
+    private Action<T> m_Action;
     public ActionToObserver(Action<T> action)
     {
-        this.action = action;
+        this.m_Action = action;
     }
 
     public void OnCompleted()
@@ -31,7 +31,7 @@ public class ActionToObserver<T> : IObserver<T>
 public class ObservableProperty<T> : IObservable<T>
 {
     private T m_Value;
-    private Subject<T> subject = new Subject<T>();
+    private Subject<T> m_Subject = new Subject<T>();
 
     public T Value
     {
@@ -42,14 +42,14 @@ public class ObservableProperty<T> : IObservable<T>
             if (!EqualityComparer<T>.Default.Equals(m_Value,value))
             {
                 m_Value = value;
-                subject.OnNext(m_Value);
+                m_Subject.OnNext(m_Value);
             }
         }
     }
 
     public IDisposable Subscribe(IObserver<T> observer)
     {
-      return  subject.Subscribe(observer);
+      return  m_Subject.Subscribe(observer);
     }
 }
 
@@ -58,53 +58,53 @@ public class Subject<T> : IObservable<T>, IObserver<T>
 {
     //Collection of listeners that are notified when the event is raised.
 
-    List<IObserver<T>> observers = new List<IObserver<T>>();
+    List<IObserver<T>> m_Observers = new List<IObserver<T>>();
     public void OnCompleted()
     {
-        for (int i = 0; i < observers.Count; i++)
+        for (int i = 0; i < m_Observers.Count; i++)
         {
-            observers[i].OnCompleted();
+            m_Observers[i].OnCompleted();
         }
     }
 
     public void OnError(Exception error)
     {
-        for (int i = 0; i < observers.Count; i++)
+        for (int i = 0; i < m_Observers.Count; i++)
         {
-            observers[i].OnError(error);
+            m_Observers[i].OnError(error);
         }
     }
 
     public void OnNext(T value)
     {
-        for (int i = 0; i < observers.Count; i++)
+        for (int i = 0; i < m_Observers.Count; i++)
         {
-            observers[i].OnNext(value);
+            m_Observers[i].OnNext(value);
         }
     }
 
     public IDisposable Subscribe(IObserver<T> observer)
     {
-        observers.Add(observer);
-        return new Unsubscriber(observers,observer);
+        m_Observers.Add(observer);
+        return new Unsubscriber(m_Observers,observer);
     }
 
     public class Unsubscriber : IDisposable
     {
-        List<IObserver<T>> observers;
-        private IObserver<T> observer;
+        List<IObserver<T>> m_Observers;
+        private IObserver<T> m_Observer;
 
         public Unsubscriber(List<IObserver<T>> observers, IObserver<T> observer)
         {
-            this.observers = observers;
-            this.observer = observer;
+            m_Observers = observers;
+            m_Observer = observer;
         }
 
         public void Dispose()
         {
-            if (observers.Contains(observer))
+            if (m_Observers.Contains(m_Observer))
             {
-                observers.Remove(observer);
+                m_Observers.Remove(m_Observer);
             }
         }
     }

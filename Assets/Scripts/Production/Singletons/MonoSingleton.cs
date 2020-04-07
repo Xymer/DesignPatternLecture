@@ -5,12 +5,12 @@ using UnityEngine;
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 {
 
-    private static T instance;
+    private static T m_instance;
     public static T Instance
     {
         get
         {
-            if (instance == null)
+            if (m_instance == null)
             {
                 T[] instances = FindObjectsOfType<T>();
                 if (instances.Length > 0)
@@ -19,15 +19,15 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
                 }
                 if (instances.Length > 0)
                 {
-                    instance = instances[0];
+                    m_instance = instances[0];
                 }
-                if (instance == null)
+                if (m_instance == null)
                 {
                     object[] customAttributes = typeof(T).GetCustomAttributes(typeof(SecureSingletonAttribute), false);
                     if (customAttributes.Length > 0 && customAttributes[0] is SecureSingletonAttribute attribute)
                     {
                         GameObject gameObject = new GameObject(typeof(T).Name);
-                        instance = gameObject.AddComponent<T>();
+                        m_instance = gameObject.AddComponent<T>();
                     }
                     else
                     {
@@ -42,8 +42,8 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
                                 throw new System.NullReferenceException($"there is no {typeof(T).Name} prefab in the Resources folder");
                             }
                             GameObject gameObjectInstance = Instantiate(singletonPrefab);
-                            instance = gameObjectInstance.GetComponent<T>();
-                            if (instance == null)
+                            m_instance = gameObjectInstance.GetComponent<T>();
+                            if (m_instance == null)
                             {
                                 throw new System.NullReferenceException($"There is no {typeof(T).Name} component attached to the singleton prefab");
                             }
@@ -55,20 +55,20 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
                        
                     }
                 }
-                DontDestroyOnLoad(instance.gameObject);
+                DontDestroyOnLoad(m_instance.gameObject);
             }
-            return instance;
+            return m_instance;
         }
     }
     protected virtual void Awake()
     {
-        if (instance == null)
+        if (m_instance == null)
         {
-            instance = (T)this;
+            m_instance = (T)this;
             DontDestroyOnLoad(gameObject);
 
         }
-        else if (instance != this)
+        else if (m_instance != this)
         {
             throw new System.InvalidOperationException($"There is more than one {typeof(T).Name} instance in the scene");
         }

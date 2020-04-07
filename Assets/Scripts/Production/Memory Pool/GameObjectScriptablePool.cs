@@ -3,11 +3,11 @@
 [CreateAssetMenu(menuName = "ScriptableObject/Pool/GameObject")]
 public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
 {
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private uint initSize;
-    [SerializeField] private uint expandBy;
-    [SerializeField] private bool hasParent;
-    [SerializeField] private string parentName;
+    [SerializeField] private GameObject m_Prefab;
+    [SerializeField] private uint m_InitSize;
+    [SerializeField] private uint m_ExpandBy;
+    [SerializeField] private bool m_HasParent;
+    [SerializeField] private string m_ParentName;
 
     private GameObjectPool internalPool;
 
@@ -20,12 +20,12 @@ public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
         if (internalPool == null)
         {
             Transform parent = null;
-            if (hasParent)
+            if (m_HasParent)
             {
-                parent = new GameObject(parentName).transform;
+                parent = new GameObject(m_ParentName).transform;
             }
 
-            internalPool = new GameObjectPool(initSize, prefab, expandBy, parent);
+            internalPool = new GameObjectPool(m_InitSize, m_Prefab, m_ExpandBy, parent);
 
         }
         return internalPool.Rent(returnActive);

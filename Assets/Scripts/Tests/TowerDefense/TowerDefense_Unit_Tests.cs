@@ -67,5 +67,46 @@ namespace Tests
         {
             Assert.Pass();
         }
+
+        private event Action<int> m_IntEvent;
+
+        public void EventTest()
+        {
+            List<int> myList = new List<int>();
+            int a = 0;
+            Action<int> del0, del1 = null, del2 = null, del3 = null;
+
+            del0 = (value) =>
+            {
+                myList = null;
+                a++;
+                m_IntEvent -= del1;
+                m_IntEvent -= del1;
+                m_IntEvent -= del1;
+            };
+            del1 = (value) => 
+            {
+                a++;
+
+            };
+            del2 = (value) => 
+            {
+                a++;
+
+            };
+           del3 = (value) => 
+            {
+                a++;
+
+            };
+
+            m_IntEvent += del0;
+            m_IntEvent += del1;
+            m_IntEvent += del2;
+            m_IntEvent += del3;
+
+            m_IntEvent.Invoke(0);
+            Assert.AreEqual(1, a);
+        }
     }
 }

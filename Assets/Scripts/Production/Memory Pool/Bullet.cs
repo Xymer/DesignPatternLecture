@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float minSpeed;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private float m_MinSpeed;
+    [SerializeField] private float m_MaxSpeed;
+    [SerializeField] private Rigidbody m_Rigidbody;
 
     public void Reset()
     {
-        rigidbody.velocity = Vector3.zero;
+        m_Rigidbody.velocity = Vector3.zero;
     }
 
     private void Sleep()
@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Random.ColorHSV(0.8f, 1f);
         transform.position = startPosition;
-        rigidbody.AddForce(Vector3.up * Random.Range(minSpeed, maxSpeed));
+        m_Rigidbody.AddForce(Vector3.up * Random.Range(m_MinSpeed, m_MaxSpeed));
         Invoke(nameof(Sleep), 1.5f);
     }
 }

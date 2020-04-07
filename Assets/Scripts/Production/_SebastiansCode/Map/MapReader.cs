@@ -9,23 +9,23 @@ using UnityEngine;
 [System.Serializable]
 public class MapKeyData
 {
-    private readonly TileType type;
-    private readonly GameObject prefab;
-    public TileType Type => type;
+    private readonly TileType m_Type;
+    private readonly GameObject m_Prefab;
+    public TileType Type => m_Type;
 
-    public GameObject Prefab => prefab;
+    public GameObject Prefab => m_Prefab;
     public MapKeyData(TileType type, GameObject prefab)
     {
-        this.type = type;
-        this.prefab = prefab;
+        m_Type = type;
+        m_Prefab = prefab;
     }
 }
 public class MapReader
 {
     private readonly Dictionary<TileType, GameObject> prefabsById;
-    public MapReader(IEnumerable<MapKeyData> mapKeyData,string mapName)
+    public MapReader(IEnumerable<MapKeyData> mapKeyData, string mapName)
     {
-        this.mapName = mapName;
+        m_MapName = mapName;
         prefabsById = new Dictionary<TileType, GameObject>();
         foreach (MapKeyData data in mapKeyData)
         {
@@ -38,18 +38,18 @@ public class MapReader
     private const string BLOCK_SPLITTER = "#";
     private const char SPACE = ' ';
     [Header("Map Name")]
-    private string mapName = "";
+    private string m_MapName = "";
 
-    private int[,] mapData;
-    private int[,] enemyArray;
-    private string[] data;
-    private string[] enemyData;
+    private int[,] m_MapData;
+    private int[,] m_EnemyArray;
+    private string[] m_Data;
+    private string[] m_EnemyData;
     private int totalWaves = 0;
     void ReadString()
     {
         int ySize = 0;
         int enemyYSize = 0;
-        string filePath = "Assets/Resources/" + ProjectPaths.RESOURCES_MAP_SETTINGS + mapName + ".txt";
+        string filePath = "Assets/Resources/" + ProjectPaths.RESOURCES_MAP_SETTINGS + m_MapName + ".txt";
         bool startEnemyArray = false;
         using (StreamReader reader = new StreamReader(filePath))
         {
@@ -63,7 +63,7 @@ public class MapReader
                 if (!startEnemyArray && reading)
                 {
                     string line = reader.ReadLine();
-                                      
+
                     if (line != BLOCK_SPLITTER)
                     {
                         tempMapData.Add(line);
@@ -86,24 +86,24 @@ public class MapReader
                     else
                     {
                         tempEnemyData.Add(line);
-                       
+
                         enemyYSize++;
                         totalWaves = enemyYSize;
                     }
                 }
                 else
                 {
-                    data = new string[ySize];
-                    mapData = new int[tempMapData[0].Length, ySize];
-                    enemyData = new string[enemyYSize];
-                    enemyArray = new int[tempEnemyData[0].Split(SPACE).Length, enemyYSize];
+                    m_Data = new string[ySize];
+                    m_MapData = new int[tempMapData[0].Length, ySize];
+                    m_EnemyData = new string[enemyYSize];
+                    m_EnemyArray = new int[tempEnemyData[0].Split(SPACE).Length, enemyYSize];
                     for (int i = 0; i < tempMapData.Count; i++)
                     {
-                        data[i] = tempMapData[i];
+                        m_Data[i] = tempMapData[i];
                     }
                     for (int i = 0; i < tempEnemyData.Count; i++)
                     {
-                        enemyData[i] = tempEnemyData[i];
+                        m_EnemyData[i] = tempEnemyData[i];
                     }
                     tempMapData.Clear();
                     tempEnemyData.Clear();
@@ -114,41 +114,41 @@ public class MapReader
     }
     void SetupMapArray()
     {
-        for (int y = 0; y < data.Length; y++)
+        for (int y = 0; y < m_Data.Length; y++)
         {
-            for (int x = 0; x < data[y].Length; x++)
+            for (int x = 0; x < m_Data[y].Length; x++)
             {
-                mapData[x, y] = int.Parse(data[y][x].ToString());
+                m_MapData[x, y] = int.Parse(m_Data[y][x].ToString());
             }
         }
     }
     void SetupEnemyArray()
     {
-        for (int y = 0; y < enemyData.Length; y++)
+        for (int y = 0; y < m_EnemyData.Length; y++)
         {
-            string[] currentWave = enemyData[y].Split(SPACE);
+            string[] currentWave = m_EnemyData[y].Split(SPACE);
             for (int x = 0; x < currentWave.Length; x++)
             {
-                enemyArray[x, y] = int.Parse(currentWave[x]);
+                m_EnemyArray[x, y] = int.Parse(currentWave[x]);
             }
         }
     }
 
     public void SetMap(string mapName)
     {
-        this.mapName = mapName;
+        m_MapName = mapName;
         ReadString();
         SetupMapArray();
         SetupEnemyArray();
     }
-   public  int[,] GetMapData()
+    public int[,] GetMapData()
     {
-        return mapData;
+        return m_MapData;
     }
     public int[,] GetEnemyData()
     {
-        return enemyArray;
-    }  
+        return m_EnemyArray;
+    }
     public Dictionary<TileType, GameObject> GetDictionaryOfPrefabs()
     {
         return prefabsById;

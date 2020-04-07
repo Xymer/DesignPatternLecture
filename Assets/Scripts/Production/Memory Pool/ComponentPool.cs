@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class ComponentPool<T> : IDisposable, IPool<T> where T : Component
 {
-    private bool isDisposed;
-    private readonly uint expandBy;
-    private readonly Stack<T> objects;
-    private readonly List<T> created;
-    private readonly T prefab;
-    private readonly Transform parent;
+    private bool m_IsDisposed;
+    private readonly uint m_ExpandBy;
+    private readonly Stack<T> m_Objects;
+    private readonly List<T> m_Created;
+    private readonly T m_Prefab;
+    private readonly Transform m_Parent;
 
     public ComponentPool(uint initSize, T prefab, uint expandBy, Transform parent)
     {
-        this.expandBy = expandBy;
-        this.prefab = prefab;
-        this.parent = parent;
+        m_ExpandBy = expandBy;
+        m_Prefab = prefab;
+        m_Parent = parent;
         prefab.gameObject.SetActive(false);
-        objects = new Stack<T>();
-        created = new List<T>();
+        m_Objects = new Stack<T>();
+        m_Created = new List<T>();
 
         Expand((uint)Mathf.Max(1, initSize));
     }
@@ -26,41 +26,41 @@ public class ComponentPool<T> : IDisposable, IPool<T> where T : Component
 
     public T Rent(bool returnActive)
     {
-        if (objects.Count == 0)
+        if (m_Objects.Count == 0)
         {
-            Expand(expandBy);
+            Expand(m_ExpandBy);
         }
-        T instance = objects.Pop();
+        T instance = m_Objects.Pop();
         return instance;
     }
     private void Expand(uint amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            T instance = Object.Instantiate(prefab, parent);
+            T instance = Object.Instantiate(m_Prefab, m_Parent);
             instance.gameObject.AddComponent<EmitOnDisable>().OnDisableGameObject += UnRent;
 
-            objects.Push(instance);
-            created.Add(instance);
+            m_Objects.Push(instance);
+            m_Created.Add(instance);
         }
     }
     private void UnRent(GameObject gameObject)
     {
-        if (!isDisposed)
+        if (!m_IsDisposed)
         {
-            objects.Push(gameObject.GetComponent<T>());
+            m_Objects.Push(gameObject.GetComponent<T>());
         }
     }
 
     public void Dispose()
     {
-        isDisposed = true;
+        m_IsDisposed = true;
         Clean();
     }
 
     public void Clean()
     {
-        foreach (T component in objects)
+        foreach (T component in m_Objects)
         {
             if (component != null)
             {

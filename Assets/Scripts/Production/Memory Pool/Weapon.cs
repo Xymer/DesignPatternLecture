@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private Bullet bulletComponentPrefab;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObjectScriptablePool scriptablePool;
+    [SerializeField] private Bullet m_BulletComponentPrefab;
+    [SerializeField] private GameObject m_BulletPrefab;
+    [SerializeField] private GameObjectScriptablePool m_ScriptablePool;
 
-    private GameObjectPool bulletPool;
-    private ComponentPool<Bullet> bulletComponentPool;
+    private GameObjectPool m_BulletPool;
+    private ComponentPool<Bullet> m_BulletComponentPool;
     private void Awake()
     {
         //bulletPool = new GameObjectPool(10, bulletPrefab, 1, new GameObject("Bullet Parent").transform);
@@ -29,7 +29,7 @@ public class Weapon : MonoBehaviour
             //bulletComponent.gameObject.SetActive(true);
             //bulletComponent.Push();
 
-            GameObject bullet = scriptablePool.Rent(true);
+            GameObject bullet = m_ScriptablePool.Rent(true);
             Bullet bulletComponent = bullet.GetComponent<Bullet>();
             bulletComponent.Throw(transform.position);
         }

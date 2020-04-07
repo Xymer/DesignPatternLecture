@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class GameObjectPool : IPool<GameObject>, IDisposable
 {
-    private bool isDisposed;
-    private readonly uint expandBy;
-    private readonly GameObject prefab;
-    private readonly Transform parent;
+    private bool m_IsDisposed;
+    private readonly uint m_ExpandBy;
+    private readonly GameObject m_Prefab;
+    private readonly Transform m_Parent;
 
-    private readonly Stack<GameObject> objects = new Stack<GameObject>();
-    private readonly List<GameObject> created = new List<GameObject>();
+    private readonly Stack<GameObject> m_Objects = new Stack<GameObject>();
+    private readonly List<GameObject> m_Created = new List<GameObject>();
     public GameObjectPool(uint initSize, GameObject prefab, uint expandBy = 1, Transform parent = null)
     {
 
-        this.expandBy = (uint)Mathf.Max(1, expandBy);
-        this.prefab = prefab;
-        this.parent = parent;
+        m_ExpandBy = (uint)Mathf.Max(1, expandBy);
+        m_Prefab = prefab;
+        m_Parent = parent;
         prefab.SetActive(false);
         Expand((uint)Mathf.Max(1, initSize));
     }
@@ -23,40 +23,40 @@ public class GameObjectPool : IPool<GameObject>, IDisposable
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject instance = GameObject.Instantiate(prefab, parent);
+            GameObject instance = GameObject.Instantiate(m_Prefab, m_Parent);
             EmitOnDisable emitOnDisable = instance.AddComponent<EmitOnDisable>();
             emitOnDisable.OnDisableGameObject += UnRent;
 
-            objects.Push(instance);
-            created.Add(instance);
+            m_Objects.Push(instance);
+            m_Created.Add(instance);
         }
     }
     private void UnRent(GameObject gameObject)
     {
-        if (isDisposed == false)
+        if (m_IsDisposed == false)
         {
-            objects.Push(gameObject);
+            m_Objects.Push(gameObject);
         }
     }
     public GameObject Rent(bool returnActive)
     {
-        if (isDisposed)
+        if (m_IsDisposed)
         {
             return null;
         }
-        if (objects.Count == 0)
+        if (m_Objects.Count == 0)
         {
-            Expand(expandBy);
+            Expand(m_ExpandBy);
         }
 
-        GameObject instance = objects.Pop();
+        GameObject instance = m_Objects.Pop();
         instance.SetActive(returnActive);
 
         return instance;
     }
     public void Clear()
     {
-        foreach (GameObject gameObject in created)
+        foreach (GameObject gameObject in m_Created)
         {
             if (gameObject != null)
             {
@@ -64,13 +64,13 @@ public class GameObjectPool : IPool<GameObject>, IDisposable
                 Object.Destroy(gameObject);
             }
         }
-        objects.Clear();
-        created.Clear();
+        m_Objects.Clear();
+        m_Created.Clear();
     }
 
     public void Dispose()
     {
-        isDisposed = true;
+        m_IsDisposed = true;
         Clear();
     }
 }

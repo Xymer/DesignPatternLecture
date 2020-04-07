@@ -150,11 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1c8341a79c04d4dace899f1f4838a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletComponentPrefab: {fileID: 6276529639990431632, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  bulletPrefab: {fileID: 4965783370040121270, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  scriptablePool: {fileID: 11400000, guid: 915f0fac9afc1454d9b86cdacf369427, type: 2}
+  m_BulletComponentPrefab: {fileID: 0}
+  m_BulletPrefab: {fileID: 0}
+  m_ScriptablePool: {fileID: 0}
 --- !u!4 &122873400
 Transform:
   m_ObjectHideFlags: 0
@@ -168,102 +166,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &177668371
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 177668373}
-  - component: {fileID: 177668372}
-  m_Layer: 0
-  m_Name: Weapon (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &177668372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177668371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1c8341a79c04d4dace899f1f4838a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletComponentPrefab: {fileID: 6276529639990431632, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  bulletPrefab: {fileID: 4965783370040121270, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  scriptablePool: {fileID: 11400000, guid: 915f0fac9afc1454d9b86cdacf369427, type: 2}
---- !u!4 &177668373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177668371}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.76, y: 0, z: 12.35}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &326084038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 326084040}
-  - component: {fileID: 326084039}
-  m_Layer: 0
-  m_Name: Weapon (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &326084039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326084038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1c8341a79c04d4dace899f1f4838a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletComponentPrefab: {fileID: 6276529639990431632, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  bulletPrefab: {fileID: 4965783370040121270, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  scriptablePool: {fileID: 11400000, guid: 915f0fac9afc1454d9b86cdacf369427, type: 2}
---- !u!4 &326084040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326084038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.27, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &997698401
 GameObject:
@@ -433,61 +335,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358682640}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1963752588
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1963752590}
-  - component: {fileID: 1963752589}
-  m_Layer: 0
-  m_Name: Weapon (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1963752589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963752588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f1c8341a79c04d4dace899f1f4838a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletComponentPrefab: {fileID: 6276529639990431632, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  bulletPrefab: {fileID: 4965783370040121270, guid: de8f18713b41ba5489f83d54e7a45cb0,
-    type: 3}
-  scriptablePool: {fileID: 11400000, guid: 915f0fac9afc1454d9b86cdacf369427, type: 2}
---- !u!4 &1963752590
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963752588}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.07, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &2102808162
 GameObject:
   m_ObjectHideFlags: 0

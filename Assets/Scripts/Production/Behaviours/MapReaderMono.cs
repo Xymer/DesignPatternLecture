@@ -15,9 +15,9 @@ public class MapReaderMono : MonoBehaviour
 {
     [SerializeField] private MapKeyDataMono[] mapKeyMonos;
     [SerializeField,Tooltip("Displacement of each tile when spawning")] private int tileDisplacement = 0;
-    MapReader mapReader;
-    MapGenerator mapGenerator;
-    public string mapName = "map_1";
+    MapReader m_MapReader;
+    MapGenerator m_MapGenerator;
+    public string m_MapName = "map_1";
     private void Awake()
     {
         List<MapKeyData> data = new List<MapKeyData>();
@@ -27,14 +27,18 @@ public class MapReaderMono : MonoBehaviour
             var d = new MapKeyData(keyDataMono.type, keyDataMono.prefab);
             data.Add(d);
         }
-        mapReader = new MapReader(data,mapName);
-        mapGenerator = new MapGenerator();
-       
+        m_MapReader = new MapReader(data,m_MapName);
+        m_MapGenerator = new MapGenerator();      
     }
     [ContextMenu("Generate Map")]
     public void GenerateMap()
     {
-        mapReader.SetMap(mapName);
-        mapGenerator.GenerateMap(mapReader.GetMapData(), mapReader.GetDictionaryOfPrefabs(), tileDisplacement);
+        m_MapReader.SetMap(m_MapName);
+        m_MapGenerator.GenerateMap(m_MapReader.GetMapData(), m_MapReader.GetDictionaryOfPrefabs(), tileDisplacement);
+    }
+
+    public IEnumerable<Vector2Int> GetMapGeneratorPath()
+    {
+        return m_MapGenerator.GetPath();
     }
 }

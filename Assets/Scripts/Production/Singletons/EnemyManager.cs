@@ -5,11 +5,11 @@ using UnityEngine;
 [SingletonConfiguration("sgl_EnemyManager")]
 public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    [SerializeField] private GameObject enemyPrefab;
-    // Start is called before the first frame update
+    [SerializeField] private GameObject m_EnemyPrefab;
+   
 
     public void CreateEnemy()
     {
-       Instantiate(enemyPrefab);
+       Instantiate(m_EnemyPrefab);
     }
 }

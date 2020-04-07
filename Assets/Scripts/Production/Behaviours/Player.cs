@@ -5,19 +5,19 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public ObservableProperty<int> health = new ObservableProperty<int>();
+    public ObservableProperty<int> m_Health = new ObservableProperty<int>();
 
-    private string name;
+    private string m_Name;
     public event Action<string> OnNameChanged;
     public string Name
     {
-        get => name;
+        get => m_Name;
         set
         {
-            if (name != value)
+            if (m_Name != value)
             {
-                name = value;
-                OnNameChanged?.Invoke(name);
+                m_Name = value;
+                OnNameChanged?.Invoke(m_Name);
             }
         }
     }
@@ -25,6 +25,6 @@ public class Player : MonoBehaviour
     [ContextMenu("Increase Health")]
     public void Increase()
     {
-        health += 1;
+        m_Health.Value += 1;
     }
 }
