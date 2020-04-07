@@ -11,10 +11,7 @@ public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
 
     private GameObjectPool internalPool;
 
-    private void Awake()
-    {
 
-    }
     public GameObject Rent(bool returnActive)
     {
         if (internalPool == null)

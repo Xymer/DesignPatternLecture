@@ -93,7 +93,7 @@ namespace AI
                 {
                     path.Add(node.Key);
                 }
-                path.Reverse();
+                //path.Reverse();
                 return path;
             }
 

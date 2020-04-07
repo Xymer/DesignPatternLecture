@@ -10,4 +10,19 @@ public class ScriptableEnemies : ScriptableObject
 
     [SerializeField] private GameObject m_Prefab;
 
+    public float MovementSpeed
+    {
+        get => m_MovementSpeed;
+
+    }
+    public int Health
+    {
+        get => m_Health;
+    }
+    public GameObject Prefab
+    {
+        get => m_Prefab;
+    }
+
+
 }

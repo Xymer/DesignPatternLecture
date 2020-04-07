@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnData
 {
-    [SerializeField] private ScriptableObject m_Enemy;
+    [SerializeField] private ScriptableEnemies m_Enemy;
     [SerializeField] private int m_EnemyCount;
 
     public ScriptableObject Enemy => m_Enemy;
@@ -13,14 +13,15 @@ public class SpawnData
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private SpawnData[] m_SpawnDatas;
+    [SerializeField] private Unit TempPrefab;
     [SerializeField] private MapReaderMono m_MapReader;
-
+    [SerializeField] private Camera m_Camera;
     private PathAgent m_PathManager;
-  
+    private Vector3 startPosition;
     private void Awake()
     {
         m_MapReader = GetComponent<MapReaderMono>();
+        m_Camera = Camera.main;
     }
 
     private void Start()
@@ -34,9 +35,24 @@ public class SpawnManager : MonoBehaviour
 
     private void Initalize()
     {
-        List<GameObject> enemies = new List<GameObject>();
+        List<Unit> units = new List<Unit>();
+        m_MapReader.GenerateMap();       
+        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x,m_Camera.transform.position.y,m_MapReader.GetMapCenter().y);
+        m_PathManager = new PathAgent(units ,m_MapReader.GetMapGeneratorPath());
+        startPosition = new Vector3(m_PathManager.GetPath(0).x,1, m_PathManager.GetPath(0).y);
+    }
+    [ContextMenu("ChangeMap")]
+    private void ChangeMap()
+    {
         m_MapReader.GenerateMap();
-        m_PathManager = new PathAgent(enemies ,m_MapReader.GetMapGeneratorPath());
+        m_PathManager.ChangePath(m_MapReader.GetMapGeneratorPath());
+        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().y);
+
+    }
+    [ContextMenu("SpawnEnemy")]
+    private void SpawnEnemy()
+    {        
+        Instantiate(TempPrefab,startPosition,Quaternion.identity);
     }
     private void OnDrawGizmos()
     {
@@ -49,6 +65,5 @@ public class SpawnManager : MonoBehaviour
                 Gizmos.DrawSphere(draw, 1f);
             }
         }
-
     }
 }
