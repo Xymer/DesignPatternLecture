@@ -10,8 +10,7 @@ public class MapGenerator : MonoBehaviour
         if (objectsPlaced.Count != 0)
         {
             foreach (GameObject GO in objectsPlaced)
-            {
-                
+            {              
                 Destroy(GO);
             }
 

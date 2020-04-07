@@ -1,2 +1,2 @@
-﻿public delegate void Action<T>(in T value);
+﻿public delegate void Action<T>(T value);
 

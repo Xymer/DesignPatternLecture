@@ -4,21 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-  private int health;
 
-    public event Action<int> OnPlayerHealthChanged;
-    public int Health
-    {
-        get => health;
-        set
-        {
-            if (health != value)
-            {
-                health = value;
-                OnPlayerHealthChanged?.Invoke(health);
-            }
-        }
-    }
+    public ObservableProperty<int> health = new ObservableProperty<int>();
 
     private string name;
     public event Action<string> OnNameChanged;
@@ -27,7 +14,7 @@ public class Player : MonoBehaviour
         get => name;
         set
         {
-            if(name != value)
+            if (name != value)
             {
                 name = value;
                 OnNameChanged?.Invoke(name);
