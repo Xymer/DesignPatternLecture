@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnData
-{
-    [SerializeField] private ScriptableEnemies m_Enemy;
-    [SerializeField] private int m_EnemyCount;
 
-    public ScriptableObject Enemy => m_Enemy;
-    public int EnemyCount => m_EnemyCount;
-}
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private Unit TempPrefab;
+    [SerializeField] private ScriptableEnemies[] Enemy;
     [SerializeField] private MapReaderMono m_MapReader;
     [SerializeField] private Camera m_Camera;
     private PathAgent m_PathManager;
@@ -35,9 +28,9 @@ public class SpawnManager : MonoBehaviour
 
     private void Initalize()
     {
-        List<Unit> units = new List<Unit>();
+        List<ScriptableEnemies> units = new List<ScriptableEnemies>();
         m_MapReader.GenerateMap();       
-        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x,m_Camera.transform.position.y,m_MapReader.GetMapCenter().y);
+        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x,m_Camera.transform.position.y,m_MapReader.GetMapCenter().z);
         m_PathManager = new PathAgent(units ,m_MapReader.GetMapGeneratorPath());
         startPosition = new Vector3(m_PathManager.GetPath(0).x,1, m_PathManager.GetPath(0).y);
     }
@@ -46,13 +39,13 @@ public class SpawnManager : MonoBehaviour
     {
         m_MapReader.GenerateMap();
         m_PathManager.ChangePath(m_MapReader.GetMapGeneratorPath());
-        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().y);
+        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().z);
 
     }
     [ContextMenu("SpawnEnemy")]
     private void SpawnEnemy()
     {        
-        Instantiate(TempPrefab,startPosition,Quaternion.identity);
+       Instantiate(Enemy[0].Prefab,startPosition,Quaternion.identity);
     }
     private void OnDrawGizmos()
     {

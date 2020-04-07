@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PathAgent
 {
-    List<GameObject> m_Agents = new List<GameObject>();
+    List<ScriptableEnemies> m_Units = new List<ScriptableEnemies>();
+    List<ScriptableEnemies> m_Agents = new List<ScriptableEnemies>();
     IEnumerable<Vector2Int> m_Path;
 
-    public PathAgent(List<Unit> agents, IEnumerable<Vector2Int> path)
+    public PathAgent(List<ScriptableEnemies> units, IEnumerable<Vector2Int> path)
     {
-        m_Agents = agents;
+        m_Units = units;
         m_Path = path;
     }
 
@@ -30,16 +31,16 @@ public class PathAgent
 
     public void MoveAgent()
     {
-        foreach (GameObject agent in m_Agents)
+        foreach (ScriptableEnemies agent in m_Agents)
         {
-            
+            agent.CurrentPath++;
         }
     }
     public void ChangePath(IEnumerable<Vector2Int> newPath)
     {
         m_Path = newPath;
     }
-    public void AddUnitToAgents(GameObject unit)
+    public void AddUnitToAgents(ScriptableEnemies unit)
     {
         m_Agents.Add(unit);
     }

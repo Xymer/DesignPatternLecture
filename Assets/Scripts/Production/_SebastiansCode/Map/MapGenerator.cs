@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
 
                 if (y == Mathf.CeilToInt(yLength * HALF) && x == Mathf.CeilToInt(xLength * HALF))
                 {
-                    m_MapCenter = new Vector3(m_ObjectsPlaced[m_ObjectsPlaced.Count - 1].transform.position.x, 0, m_ObjectsPlaced[m_ObjectsPlaced.Count - 1].transform.position.z);
+                    m_MapCenter = new Vector3(x * displacement, 0,y * displacement);
                 }
             }
         }
