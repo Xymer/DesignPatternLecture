@@ -2,29 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Tools;
+using UnityEngine;
+
 public class Player : MonoBehaviour
 {
+    [SerializeField] private int m_InitHealth;
 
-    public ObservableProperty<int> m_Health = new ObservableProperty<int>();
+    public ObservableProperty<int> Health { get; } = new ObservableProperty<int>();
+    public ObservableProperty<string> Name { get; } = new ObservableProperty<string>();
 
-    private string m_Name;
-    public event Action<string> OnNameChanged;
-    public string Name
+    private void Awake()
     {
-        get => m_Name;
-        set
-        {
-            if (m_Name != value)
-            {
-                m_Name = value;
-                OnNameChanged?.Invoke(m_Name);
-            }
-        }
+        Health.Value = m_InitHealth;
     }
 
-    [ContextMenu("Increase Health")]
-    public void Increase()
+    private void Update()
     {
-        m_Health.Value += 1;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Health.Value += 1;
+            Name.Value = Guid.NewGuid().ToString();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Health.Value -= 1;
+            Name.Value = Guid.NewGuid().ToString();
+        }
     }
 }

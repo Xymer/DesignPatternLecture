@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObjectScriptablePool[] Enemies;
+    [SerializeField] private GameObjectScriptablePool[] m_Enemies;
     [SerializeField] private MapReaderMono m_MapReader;
     [SerializeField] private Camera m_Camera;
     private PathAgent m_PathManager;
-    private Vector3 startPosition;
+    private Vector3 m_StartPosition;
     private void Awake()
     {
         m_MapReader = GetComponent<MapReaderMono>();
@@ -29,10 +29,11 @@ public class SpawnManager : MonoBehaviour
     private void Initalize()
     {
         List<ScriptableEnemies> units = new List<ScriptableEnemies>();
-        m_MapReader.GenerateMap();       
-        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x,m_Camera.transform.position.y,m_MapReader.GetMapCenter().z);
-        m_PathManager = new PathAgent(units ,m_MapReader.GetMapGeneratorPath());
-        startPosition = new Vector3(m_PathManager.GetPath(0).x,1, m_PathManager.GetPath(0).y);
+        m_MapReader.GenerateMap();
+        m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().z);
+        m_PathManager = new PathAgent(m_MapReader.GetMapGeneratorPath());
+        List<Vector2Int> path = (List<Vector2Int>)m_PathManager.GetPath();
+        m_StartPosition = new Vector3(path[0].x, 1, path[0].y);
     }
     [ContextMenu("ChangeMap")]
     private void ChangeMap()
@@ -44,14 +45,16 @@ public class SpawnManager : MonoBehaviour
     }
     [ContextMenu("SpawnEnemy")]
     private void SpawnEnemy()
-    {        
-        GameObject enemy = Instantiate(Enemies[0].Rent(false), startPosition, Quaternion.identity);
-        enemy.SetActive(true);
+    {
+        GameObject enemy = m_Enemies[0].Rent(true);
+        enemy.transform.position = m_StartPosition;
+        enemy.transform.rotation = Quaternion.identity;
+        
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        if (m_MapReader != null)
+        if (m_MapReader != null && m_PathManager.GetPath() != null)
         {
             foreach (Vector2Int item in m_PathManager.GetPath())
             {

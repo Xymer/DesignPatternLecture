@@ -12,9 +12,15 @@ public class MapGenerator : MonoBehaviour
     Vector3 m_MapCenter = Vector3.zero;
     IEnumerable<Vector2Int> m_Path = new List<Vector2Int>();
     List<Vector2Int> m_AccessibleNodes = new List<Vector2Int>();
+    GameObject parent;
 
     public void GenerateMap(int[,] mapData, Dictionary<TileType, GameObject> prefabsById, int displacement)
     {
+        if (parent == null)
+        {
+            parent = Instantiate(new GameObject("Tiles"));
+            parent.transform.position = Vector3.zero;
+        }
        
         Vector2Int walkableTile = Vector2Int.zero;
         if (m_ObjectsPlaced.Count != 0)
@@ -59,7 +65,7 @@ public class MapGenerator : MonoBehaviour
                         m_AccessibleNodes.Add(walkableTile);
                     }
                 }
-                m_ObjectsPlaced.Add(GameObject.Instantiate(currentPrefab, new Vector3Int(x * displacement, 0, y * displacement), Quaternion.identity));
+                m_ObjectsPlaced.Add(GameObject.Instantiate(currentPrefab, new Vector3Int(x * displacement, 0, y * displacement), Quaternion.identity,parent.transform));
 
                 if (y == Mathf.CeilToInt(yLength * HALF) && x == Mathf.CeilToInt(xLength * HALF))
                 {

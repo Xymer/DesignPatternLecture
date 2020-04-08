@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Prefab: {fileID: 4175602113537187157, guid: 5818fab93c5700e4890e42d01917922f,
     type: 3}
-  m_InitSize: 5
+  m_InitSize: 1
   m_ExpandBy: 1
   m_HasParent: 1
   m_ParentName: Enemies

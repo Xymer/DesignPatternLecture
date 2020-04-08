@@ -17,14 +17,14 @@ public class PlayerHealthListener : MonoBehaviour
     {
         if (player != null) // Is this the first OnEnable call?
         {
-            subscription = player.m_Health.Subscribe(UpdateTextField);
+            subscription = player.Health.Subscribe(UpdateTextField);
         }
     }
 
     private void Start() //Construct myself 2 / 2
     {
         player = FindObjectOfType<Player>();
-        subscription = player.m_Health.Subscribe(UpdateTextField);
+        subscription = player.Health.Subscribe(UpdateTextField);
         // (intValue) =>
         // {
         //     Debug.Log("I still alive!");

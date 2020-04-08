@@ -308,20 +308,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: m_Enemies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: m_Enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 69a1f99864892bd43941e5626abf0c21,
+        type: 2}
+    - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: m_Enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e023dbb6d95fd6949993f6a817213938,
+        type: 2}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.783061
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -70.31163
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.2104645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
