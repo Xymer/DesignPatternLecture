@@ -36,6 +36,10 @@ public class MapReaderMono : MonoBehaviour
         m_MapReader.SetMap(m_MapName);
         m_MapGenerator.GenerateMap(m_MapReader.GetMapData(), m_MapReader.GetDictionaryOfPrefabs(), tileDisplacement);
     }
+    public int[,] GetEnemyData()
+    {
+       return m_MapReader.GetEnemyData();
+    }
     public Vector3 GetMapCenter()
     {
         return m_MapGenerator.GetMapCenter();

@@ -46,10 +46,14 @@ namespace AI
             if (ancestors.ContainsKey(goal))
             {
                 List<Vector2Int> path = new List<Vector2Int>();
-                foreach (var node in ancestors)
+                while (currentNode != start)
                 {
-                    path.Add(node.Key);
+                    path.Add(currentNode);
+                    currentNode = ancestors[currentNode];
+
                 }
+                path.Add(currentNode);
+
                 path.Reverse();
                 return path;
             }
@@ -89,11 +93,15 @@ namespace AI
             if (ancestors.ContainsKey(goal))
             {
                 List<Vector2Int> path = new List<Vector2Int>();
-                foreach (var node in ancestors)
+                while (currentNode != start)
                 {
-                    path.Add(node.Key);
+                    path.Add(currentNode);
+                    currentNode = ancestors[currentNode];
+
                 }
-                //path.Reverse();
+                path.Add(currentNode);
+                
+                path.Reverse();
                 return path;
             }
 

@@ -7,14 +7,26 @@ public class ScriptableEnemies : ScriptableObject
 {
     [SerializeField] private float m_MovementSpeed = 1;
     [SerializeField] private int m_Health = 10;
-
+    [SerializeField] private int m_Damage = 1;
     [SerializeField] private GameObject m_Prefab;
     private int m_CurrentPath = 0;
-    private List<Vector2Int> m_Path;
+
     public float MovementSpeed
     {
         get => m_MovementSpeed;
 
+    }
+    public int Damage
+    {
+        get => m_Damage;
+
+        set
+        {
+            if (m_Damage != value)
+            {
+                m_Damage = value;
+            }
+        }
     }
     public int Health
     {
@@ -35,14 +47,5 @@ public class ScriptableEnemies : ScriptableObject
             }
         }
     }
-    public List<Vector2Int> Path
-    {
-        get => m_Path;
-        set => m_Path = value;
-    }
-    public void Move()
-    {
-        Vector3 moveTo = new Vector3(m_Path[CurrentPath].x, 1, m_Path[CurrentPath].y);
-        m_Prefab.transform.position = moveTo;
-    }
+
 }

@@ -290,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358682640}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 24, y: 32, z: 8}
+  m_LocalPosition: {x: 24, y: 34, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5871153629717183317, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: m_MapName
+      value: map_1
+      objectReference: {fileID: 0}
     - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_Enemies.Array.size
@@ -317,14 +322,25 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enemies.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 69a1f99864892bd43941e5626abf0c21,
+      objectReference: {fileID: 11400000, guid: 3897fba35a74f344988111f2b2a74f77,
         type: 2}
     - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_Enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: e023dbb6d95fd6949993f6a817213938,
+      objectReference: {fileID: 11400000, guid: f7e682cd90d35a74f87019353e71807b,
         type: 2}
+    - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: m_Enemies
+      value: 
+      objectReference: {fileID: 11400000, guid: 69a1f99864892bd43941e5626abf0c21,
+        type: 2}
+    - target: {fileID: 7800416333210831789, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_LocalPosition.x

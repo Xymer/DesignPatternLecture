@@ -50,7 +50,7 @@ public class MapGenerator : MonoBehaviour
                 if (tileType == TileType.Start)
                 {
                     start = new Vector2Int(x * displacement, y * displacement);
-                    m_AccessibleNodes.Insert(0, start);
+                    
                 }
                 if (tileType == TileType.End)
                 {

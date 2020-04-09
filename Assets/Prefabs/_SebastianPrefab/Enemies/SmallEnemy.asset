@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7f9d69748cc1f4097dbdc1a7ba2f76, type: 3}
-  m_Name: BigBoxymon
+  m_Script: {fileID: 11500000, guid: 6e37c8ae00c5eb84da84b563b57fd804, type: 3}
+  m_Name: SmallEnemy
   m_EditorClassIdentifier: 
-  m_Prefab: {fileID: 7042325285610673410, guid: 2e5cac5c16345174cb00f674aea5a172,
+  m_MovementSpeed: 0.75
+  m_Health: 10
+  m_Damage: 1
+  m_Prefab: {fileID: 4175602113537187157, guid: 5818fab93c5700e4890e42d01917922f,
     type: 3}
-  m_InitSize: 1
-  m_ExpandBy: 1
-  m_HasParent: 1
-  m_ParentName: Enemies

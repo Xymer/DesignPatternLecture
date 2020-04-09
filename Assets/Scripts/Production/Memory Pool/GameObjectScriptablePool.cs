@@ -4,6 +4,7 @@
 public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
 {
     [SerializeField] private GameObject m_Prefab;
+    [SerializeField] private ScriptableEnemies m_Enemy;
     [SerializeField] private uint m_InitSize;
     [SerializeField] private uint m_ExpandBy;
     [SerializeField] private bool m_HasParent;
@@ -27,7 +28,8 @@ public class GameObjectScriptablePool : ScriptableObject, IPool<GameObject>
         }
         return internalPool.Rent(returnActive);
     }
-  
+
+
     public void OnDestroy()
     {
         internalPool.Dispose();
