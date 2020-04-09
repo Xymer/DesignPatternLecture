@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Prefab: {fileID: 7042325285610673410, guid: 2e5cac5c16345174cb00f674aea5a172,
     type: 3}
   m_Enemy: {fileID: 11400000, guid: 4aaa3a827aed2c2438b1fc4c66ccdf90, type: 2}
-  m_InitSize: 0
-  m_ExpandBy: 0
-  m_HasParent: 0
-  m_ParentName: 
+  m_InitSize: 1
+  m_ExpandBy: 1
+  m_HasParent: 1
+  m_ParentName: BigEnemies

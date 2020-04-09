@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Prefab: {fileID: 4175602113537187157, guid: 5818fab93c5700e4890e42d01917922f,
     type: 3}
   m_Enemy: {fileID: 11400000, guid: b9538b614fe532749be66b56470aff05, type: 2}
-  m_InitSize: 0
-  m_ExpandBy: 0
-  m_HasParent: 0
-  m_ParentName: 
+  m_InitSize: 1
+  m_ExpandBy: 1
+  m_HasParent: 1
+  m_ParentName: SmallEnemies

@@ -7,9 +7,8 @@ public class Unit : MonoBehaviour
     [SerializeField]private ScriptableEnemies m_Scriptable;
     private List<Vector3> m_Path;
     private int m_CurrentPath = 0;
-    private int m_Health = 10;
-    private int m_Damage = 1;
     private float m_MoveSpeed = 1.75f;
+    private int m_Health = 10;
     private bool m_ListConverted = false;
     
     private void OnEnable()
@@ -19,7 +18,7 @@ public class Unit : MonoBehaviour
     }
     private void OnDisable()
     {
-        SetValues();
+        m_CurrentPath = 0;
     }
     private void Update()
     {
@@ -42,17 +41,10 @@ public class Unit : MonoBehaviour
             currentPos = new Vector3(pos.x, 1, pos.y);
             convertedPath.Add(currentPos);
         }
-        if (m_ListConverted)
-        {
-            return m_Path;
-        }
-        else
-        { 
-        m_ListConverted = true;
-        return convertedPath;
-        }
+                  
+        return convertedPath;      
     }
-    public void GetPath(IEnumerable<Vector2Int> path)
+    public void SetPath(IEnumerable<Vector2Int> path)
     {
         m_Path = (List<Vector3>)ConvertPathToVector3(path);
     }
@@ -80,7 +72,6 @@ public class Unit : MonoBehaviour
     {
         m_MoveSpeed = m_Scriptable.MovementSpeed;
         m_Health = m_Scriptable.Health;
-        m_Damage = m_Scriptable.Damage;
         m_CurrentPath = 0;
     }
 

@@ -53,32 +53,40 @@ public class SpawnManager : MonoBehaviour
     [ContextMenu("ChangeMap")]
     private void ChangeMap()
     {
+        CancelInvoke("SpawnEnemy");
+        ResetWaveValues();
+        m_IsSpawning = false;
+       
         m_MapReader.GenerateMap();
         m_EnemyWaveData = m_MapReader.GetEnemyData();
         m_PathManager.ChangePath(m_MapReader.GetMapGeneratorPath());
+        List<Vector2Int> path = (List<Vector2Int>)m_PathManager.GetPath();
+        while (m_ActiveEnemies.Count != 0)
+        {
+            m_ActiveEnemies[0].GetComponent<Unit>().SetPath(m_PathManager.GetPath());
+            m_ActiveEnemies[0].SetActive(false);
+        }
+        m_StartPosition = new Vector3(path[0].x, 1, path[0].y);
         m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().z);
+        SpawnWave();
 
     }
     [ContextMenu("SpawnEnemy")]
     private void SpawnEnemy()
     {
         if (m_CalculateCurrentWave && m_CurrentWave < m_EnemyWaveData.GetLength(1))
-        {           
+        {
             for (int i = 0; i < m_Enemies.Length; i++)
             {
                 m_EnemiesInCurrentWave += m_EnemyWaveData[i, m_CurrentWave];
             }
             m_CalculateCurrentWave = false;
-        }       
+        }
         if (m_CurrentWave < m_EnemyWaveData.GetLength(1))
         {
             if (m_EnemiesInCurrentWave == m_DisabledEnemies)
             {
-                m_CurrentWave++;
-                m_DisabledEnemies = 0;
-                m_EnemyType = 0;
-                m_EnemiesInCurrentWave = 0;
-                m_CalculateCurrentWave = true;
+                SetWaveValues();
             }
             else
             {
@@ -92,12 +100,12 @@ public class SpawnManager : MonoBehaviour
                 if (m_EnemiesInCurrentWave > m_ActiveEnemies.Count + m_DisabledEnemies)
                 {
                     GameObject enemy = m_Enemies[m_EnemyType].Rent(true);
-                    enemy.GetComponent<Unit>().GetPath(m_PathManager.GetPath());
+                    enemy.GetComponent<Unit>().SetPath(m_PathManager.GetPath());
                     enemy.transform.position = m_StartPosition;
                     enemy.transform.rotation = Quaternion.identity;
                     EmitOnDisable emitOnDisable = enemy.GetComponent<EmitOnDisable>();
                     emitOnDisable.OnDisableGameObject += EnemyDisabled;
-                    
+
                     m_ActiveEnemies.Add(enemy);
                 }
             }
@@ -108,6 +116,24 @@ public class SpawnManager : MonoBehaviour
             CancelInvoke("SpawnEnemy");
         }
     }
+
+    private void SetWaveValues()
+    {
+        m_CurrentWave++;
+        m_DisabledEnemies = 0;
+        m_EnemyType = 0;
+        m_EnemiesInCurrentWave = 0;
+        m_CalculateCurrentWave = true;
+    }
+    private void ResetWaveValues()
+    {
+        m_CurrentWave = 0;
+        m_DisabledEnemies = 0;
+        m_EnemyType = 0;
+        m_EnemiesInCurrentWave = 0;
+        m_CalculateCurrentWave = true;
+    }
+
     private void SpawnWave()
     {
         if (!m_IsSpawning)
@@ -115,6 +141,7 @@ public class SpawnManager : MonoBehaviour
             InvokeRepeating("SpawnEnemy", 1, 1);
             m_IsSpawning = true;
         }
+
 
     }
     private void EnemyDisabled(GameObject enemy)
