@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7f9d69748cc1f4097dbdc1a7ba2f76, type: 3}
+  m_Name: NormalBulletPool
+  m_EditorClassIdentifier: 
+  m_Prefab: {fileID: 55881135792100937, guid: 713988f67a813bc42a6f2b5590641d5e, type: 3}
+  m_Enemy: {fileID: 0}
+  m_InitSize: 1
+  m_ExpandBy: 1
+  m_HasParent: 1
+  m_ParentName: Bullet

@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e37c8ae00c5eb84da84b563b57fd804, type: 3}
-  m_Name: SmallEnemy
+  m_Script: {fileID: 11500000, guid: e33b820fe18a3d04abcc29867a52049d, type: 3}
+  m_Name: NormalCannon
   m_EditorClassIdentifier: 
-  m_MovementSpeed: 0.5
-  m_Health: 10
-  m_Damage: 1
-  m_Prefab: {fileID: 4175602113537187157, guid: 5818fab93c5700e4890e42d01917922f,
+  m_Damage: 10
+  m_NumberOfBullets: 1
+  m_AttackRange: 10
+  m_AttackSpeed: 1
+  m_BulletPrefab: {fileID: 55881135792100937, guid: 713988f67a813bc42a6f2b5590641d5e,
     type: 3}
+  m_DamageType: 0

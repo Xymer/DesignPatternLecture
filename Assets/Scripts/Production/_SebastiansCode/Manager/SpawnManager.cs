@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour
     private int m_EnemyType = 0;
     private bool m_IsSpawning = false;
     private bool m_CalculateCurrentWave = true;
+    private bool m_IsDebugging = false;
     private int m_DisabledEnemies = 0;
     private PathAgent m_PathManager;
     private Vector3 m_StartPosition;
@@ -53,7 +54,7 @@ public class SpawnManager : MonoBehaviour
     [ContextMenu("ChangeMap")]
     private void ChangeMap()
     {
-        CancelInvoke("SpawnEnemy");
+        CancelInvoke(nameof(SpawnEnemy));
         ResetWaveValues();
         m_IsSpawning = false;
        
@@ -113,7 +114,7 @@ public class SpawnManager : MonoBehaviour
         else
         {
             Debug.Log("Map Finished");
-            CancelInvoke("SpawnEnemy");
+            CancelInvoke(nameof(SpawnEnemy));
         }
     }
 
@@ -138,7 +139,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (!m_IsSpawning)
         {
-            InvokeRepeating("SpawnEnemy", 1, 1);
+            InvokeRepeating(nameof(SpawnEnemy), 1, 1);
             m_IsSpawning = true;
         }
 
@@ -153,7 +154,7 @@ public class SpawnManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        if (m_MapReader != null && m_PathManager.GetPath() != null)
+        if (m_IsDebugging &&m_MapReader != null && m_PathManager.GetPath() != null)
         {
             foreach (Vector2Int item in m_PathManager.GetPath())
             {

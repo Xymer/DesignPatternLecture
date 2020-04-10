@@ -327,6 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1490886173677708733}
   - component: {fileID: 8615540975490500481}
+  - component: {fileID: -993281480111277093}
   m_Layer: 0
   m_Name: SmallBoxymon
   m_TagString: Untagged
@@ -362,6 +363,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scriptable: {fileID: 11400000, guid: b9538b614fe532749be66b56470aff05, type: 2}
+--- !u!54 &-993281480111277093
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4175602113537187157}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4319646576840995611
 GameObject:
   m_ObjectHideFlags: 0

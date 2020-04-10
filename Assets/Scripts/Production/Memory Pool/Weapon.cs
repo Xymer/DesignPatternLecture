@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
 
             GameObject bullet = m_ScriptablePool.Rent(true);
             Bullet bulletComponent = bullet.GetComponent<Bullet>();
-            bulletComponent.Throw(transform.position);
+            //bulletComponent.Throw(transform.position,Quaternion.identity.eulerAngles);
         }
     }
     private void OnDestroy()

@@ -313,6 +313,18 @@ PrefabInstance:
       propertyPath: m_MapName
       value: map_2
       objectReference: {fileID: 0}
+    - target: {fileID: 5871153629717183317, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: mapKeyMonos.Array.data[3].Prefab
+      value: 
+      objectReference: {fileID: 953458856688849167, guid: 7db345337544c3144b1382e7c41ad895,
+        type: 3}
+    - target: {fileID: 5871153629717183317, guid: 92facc79a3afc964a8640108500b0531,
+        type: 3}
+      propertyPath: mapKeyMonos.Array.data[2].Prefab
+      value: 
+      objectReference: {fileID: 5808330384545494363, guid: 2a85dc13f22680349a99f85790b9675e,
+        type: 3}
     - target: {fileID: 7843481005135168041, guid: 92facc79a3afc964a8640108500b0531,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField]private ScriptableEnemies m_Scriptable;
+    [SerializeField]private EnemyScriptable m_Scriptable;
     private List<Vector3> m_Path;
     private int m_CurrentPath = 0;
     private float m_MoveSpeed = 1.75f;
     private int m_Health = 10;
-    private bool m_ListConverted = false;
+    private bool m_IsFrozen = false;
     
     private void OnEnable()
     {
@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour
     }
     private void StartMoving()
     {
-        InvokeRepeating("Move", 1,m_MoveSpeed);
+        InvokeRepeating(nameof(Move), 1,m_MoveSpeed);
     }
     private void Move()
     {
@@ -58,7 +58,7 @@ public class Unit : MonoBehaviour
         m_CurrentPath++;
         if (m_CurrentPath == m_Path.Count)
         {
-            CancelInvoke("Move");
+            CancelInvoke(nameof(Move));
             gameObject.SetActive(false);
         }
         else
@@ -74,5 +74,13 @@ public class Unit : MonoBehaviour
         m_Health = m_Scriptable.Health;
         m_CurrentPath = 0;
     }
-
+    public void TakeDamage(int damage,DamageType damageType)
+    {
+        m_Health -= damage;
+        if (m_Health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+    
 }
