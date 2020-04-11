@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObjectScriptablePool[] m_Enemies;
     [SerializeField] private MapReaderMono m_MapReader;
     [SerializeField] private Camera m_Camera;
-
+    [SerializeField] private Text m_WinText; 
     List<GameObject> m_ActiveEnemies = new List<GameObject>();
     private int[,] m_EnemyWaveData; // [enemytype, currentwave]
     private int m_CurrentWave = 0;
@@ -20,6 +19,7 @@ public class SpawnManager : MonoBehaviour
     private bool m_IsDebugging = false;
     private int m_DisabledEnemies = 0;
     private PathAgent m_PathManager;
+    private Player m_Player;
     private Vector3 m_StartPosition;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.Log($"No scriptablepool");
         }
+        m_Player = FindObjectOfType<Player>();
         m_MapReader = GetComponent<MapReaderMono>();
         m_Camera = Camera.main;
     }
@@ -44,6 +45,7 @@ public class SpawnManager : MonoBehaviour
     private void Initalize()
     {
         m_MapReader.GenerateMap();
+        m_WinText.gameObject.SetActive(false);
         m_EnemyWaveData = m_MapReader.GetEnemyData();
         m_Camera.transform.position = new Vector3(m_MapReader.GetMapCenter().x, m_Camera.transform.position.y, m_MapReader.GetMapCenter().z);
         m_PathManager = new PathAgent(m_MapReader.GetMapGeneratorPath());
@@ -56,6 +58,8 @@ public class SpawnManager : MonoBehaviour
     {
         CancelInvoke(nameof(SpawnEnemy));
         ResetWaveValues();
+        m_Player.ResetValues();
+        m_WinText.gameObject.SetActive(false);
         m_IsSpawning = false;
        
         m_MapReader.GenerateMap();
@@ -72,9 +76,13 @@ public class SpawnManager : MonoBehaviour
         SpawnWave();
 
     }
-    [ContextMenu("SpawnEnemy")]
+  
     private void SpawnEnemy()
     {
+        if (m_Player.Health.Value <= 0)
+        {
+            CancelInvoke();
+        }
         if (m_CalculateCurrentWave && m_CurrentWave < m_EnemyWaveData.GetLength(1))
         {
             for (int i = 0; i < m_Enemies.Length; i++)
@@ -113,7 +121,7 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Map Finished");
+            m_WinText.gameObject.SetActive(true);
             CancelInvoke(nameof(SpawnEnemy));
         }
     }
@@ -142,8 +150,6 @@ public class SpawnManager : MonoBehaviour
             InvokeRepeating(nameof(SpawnEnemy), 1, 1);
             m_IsSpawning = true;
         }
-
-
     }
     private void EnemyDisabled(GameObject enemy)
     {
@@ -163,5 +169,4 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
-
 }

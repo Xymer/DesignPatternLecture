@@ -20,16 +20,21 @@ public class Player : MonoBehaviour
         Health.Value = m_InitHealth;
     }
 
+
+    public void ResetValues()
+    {
+        Health.Value = m_InitHealth;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Health.Value += 1;
+            Health.Value += 1;           
             Name.Value = Guid.NewGuid().ToString();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Health.Value -= 1;
+            Health.Value -= 1;            
             Name.Value = Guid.NewGuid().ToString();
         }
     }

@@ -3,10 +3,13 @@ using UnityEngine.UI;
 
 public class PlayerHealthListener : MonoBehaviour
 {
-    [SerializeField] private Text textField;
+    private const string m_PlayerHealth = "Player Health: ";
+    private const string m_GameOver = "Game Over";
 
-    private Player player;
-    private IDisposable subscription;
+    [SerializeField] private Text m_PlayerHealthText;
+    [SerializeField] private Text m_GameOverText;
+    private Player m_Player;
+    private IDisposable m_Subscription;
 
     private void Awake() //Construct myself 1 / 2
     {
@@ -15,16 +18,18 @@ public class PlayerHealthListener : MonoBehaviour
 
     private void OnEnable()
     {
-        if (player != null) // Is this the first OnEnable call?
+        if (m_Player != null) // Is this the first OnEnable call?
         {
-            subscription = player.Health.Subscribe(UpdateTextField);
+            m_Subscription = m_Player.Health.Subscribe(UpdateTextField);
         }
+        m_GameOverText.gameObject.SetActive(false);
+       
     }
 
     private void Start() //Construct myself 2 / 2
     {
-        player = FindObjectOfType<Player>();
-        subscription = player.Health.Subscribe(UpdateTextField);
+        m_Player = FindObjectOfType<Player>();
+        m_Subscription = m_Player.Health.Subscribe(UpdateTextField);
         // (intValue) =>
         // {
         //     Debug.Log("I still alive!");
@@ -33,11 +38,19 @@ public class PlayerHealthListener : MonoBehaviour
 
     private void OnDisable()
     {
-        subscription.Dispose();
+        m_Subscription.Dispose();
     }
 
     private void UpdateTextField(int playerHealth)
     {
-        textField.text = playerHealth.ToString();
+        if (playerHealth <= 0)
+        {
+            m_GameOverText.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_GameOverText.gameObject.SetActive(false);
+        }
+        m_PlayerHealthText.text = m_PlayerHealth + playerHealth.ToString();
     }
 }

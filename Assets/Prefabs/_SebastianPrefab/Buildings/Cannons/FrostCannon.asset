@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33b820fe18a3d04abcc29867a52049d, type: 3}
   m_Name: FrostCannon
   m_EditorClassIdentifier: 
-  m_Damage: 5
+  m_Damage: 1
   m_NumberOfBullets: 1
   m_AttackRange: 5
-  m_AttackSpeed: 1
+  m_AttackSpeed: 0.75
   m_BulletPrefab: {fileID: 8283339943942880607, guid: 8030c4605ea5a6a4e8bd42f8c0c668f8,
     type: 3}
   m_DamageType: 1

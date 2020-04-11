@@ -15,6 +15,7 @@ public class TowerCannon : MonoBehaviour
     private DamageType m_DamageType;
     private GameObject m_Bullet;
     private List<Transform> m_Targets = new List<Transform>();
+    private Player m_Player;
     private void Awake()
     {
         SetValues();
@@ -41,14 +42,19 @@ public class TowerCannon : MonoBehaviour
     }
     private void Shoot()
     {
+        if (m_Player.Health.Value <= 0)
+        {
+            CancelInvoke();
+        }
         if (m_CurrentTarget != null && m_CurrentTarget.gameObject.activeSelf)
         {
             GameObject bullet = m_BulletPool.Rent(true);
-            bullet.GetComponent<Bullet>().Throw(transform.position, m_CurrentTarget);
+            bullet.GetComponent<Bullet>().Throw(transform.position, m_CurrentTarget, m_Damage, m_DamageType);
         }
     }
     private void SetValues()
     {
+        m_Player = FindObjectOfType<Player>();
         if (m_CannonScript != null)
         {
             m_Damage = m_CannonScript.Damage;
@@ -58,7 +64,7 @@ public class TowerCannon : MonoBehaviour
             m_DamageType = m_CannonScript.DamageType;
             m_Bullet = m_CannonScript.BulletPrefab;
         }
-      
+
     }
     private void CalculateTarget()
     {
@@ -70,40 +76,52 @@ public class TowerCannon : MonoBehaviour
 
         else
         {
-            float distance = float.MaxValue;
+            float distance = m_CurrentTarget ? Vector3.Distance(m_CurrentTarget.transform.position, transform.position) : float.MaxValue;
+            if (m_CurrentTarget != null)
+            {
+                if (Vector3.Distance(m_CurrentTarget.transform.position, transform.position) > m_AttackRange)
+                {
+                    m_CurrentTarget = null;
+                }
+            }
+
             foreach (Transform target in m_Targets)
             {
                 if (Vector3.Distance(target.transform.position, transform.position) < distance)
                 {
-                    m_CurrentTarget = target.transform.parent;
+                    m_CurrentTarget = target.transform;
                     transform.LookAt(m_CurrentTarget.position);
                 }
             }
+         
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Targets.Contains(other.transform.parent))
+        if (m_Targets.Contains(other.transform))
         {
             return;
         }
-        if (other.GetComponentInParent<Unit>())
+        else if (other.GetComponentInParent<Unit>())
         {
             other.GetComponentInParent<EmitOnDisable>().OnDisableGameObject += EnemyDisabled;
-            m_Targets.Add(other.transform.parent);
+            m_Targets.Add(other.transform);
         }
     }
     private void EnemyDisabled(GameObject enemy)
     {
-
-            m_Targets.Remove(enemy.transform.parent);
-            if (m_CurrentTarget == enemy.transform.parent)
+        for (int i = 0; i < m_Targets.Count; i++)
+        {
+            if (enemy.transform == m_Targets[i].parent.parent && m_Targets.Contains(m_Targets[i]))
             {
-                m_CurrentTarget = null;
-            }       
+                m_Targets.Remove(m_Targets[i]);
+            }
+        }
+
+
     }
     private void OnTriggerExit(Collider other)
-    {
+    {       
         if (m_Targets.Contains(other.transform.parent))
         {
             other.GetComponentInParent<EmitOnDisable>().OnDisableGameObject -= EnemyDisabled;

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33b820fe18a3d04abcc29867a52049d, type: 3}
   m_Name: NormalCannon
   m_EditorClassIdentifier: 
-  m_Damage: 10
+  m_Damage: 2
   m_NumberOfBullets: 1
-  m_AttackRange: 10
+  m_AttackRange: 7.5
   m_AttackSpeed: 1
   m_BulletPrefab: {fileID: 55881135792100937, guid: 713988f67a813bc42a6f2b5590641d5e,
     type: 3}
